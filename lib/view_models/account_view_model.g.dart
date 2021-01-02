@@ -39,6 +39,21 @@ mixin _$AccountViewModel on _AccountViewModelBase, Store {
     });
   }
 
+  final _$isLoginAtom = Atom(name: '_AccountViewModelBase.isLogin');
+
+  @override
+  bool get isLogin {
+    _$isLoginAtom.reportRead();
+    return super.isLogin;
+  }
+
+  @override
+  set isLogin(bool value) {
+    _$isLoginAtom.reportWrite(value, super.isLogin, () {
+      super.isLogin = value;
+    });
+  }
+
   final _$currentAccountAsyncAction =
       AsyncAction('_AccountViewModelBase.currentAccount');
 
@@ -66,9 +81,10 @@ mixin _$AccountViewModel on _AccountViewModelBase, Store {
       AsyncAction('_AccountViewModelBase.createUserWithEmailPassword');
 
   @override
-  Future<Account> createUserWithEmailPassword(String email, String password) {
-    return _$createUserWithEmailPasswordAsyncAction
-        .run(() => super.createUserWithEmailPassword(email, password));
+  Future<Account> createUserWithEmailPassword(
+      String email, String password, String fullName) {
+    return _$createUserWithEmailPasswordAsyncAction.run(
+        () => super.createUserWithEmailPassword(email, password, fullName));
   }
 
   final _$signInWithEmailPasswordAsyncAction =
@@ -80,11 +96,31 @@ mixin _$AccountViewModel on _AccountViewModelBase, Store {
         .run(() => super.signInWithEmailPassword(email, password));
   }
 
+  final _$uploadFileAsyncAction =
+      AsyncAction('_AccountViewModelBase.uploadFile');
+
+  @override
+  Future<String> uploadFile(
+      String accoutID, String fileType, File uploadingFile) {
+    return _$uploadFileAsyncAction
+        .run(() => super.uploadFile(accoutID, fileType, uploadingFile));
+  }
+
+  final _$fullNameUpdateAsyncAction =
+      AsyncAction('_AccountViewModelBase.fullNameUpdate');
+
+  @override
+  Future<bool> fullNameUpdate(String accoutID, String newFullName) {
+    return _$fullNameUpdateAsyncAction
+        .run(() => super.fullNameUpdate(accoutID, newFullName));
+  }
+
   @override
   String toString() {
     return '''
 accountState: ${accountState},
-account: ${account}
+account: ${account},
+isLogin: ${isLogin}
     ''';
   }
 }
