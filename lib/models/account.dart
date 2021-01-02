@@ -20,7 +20,7 @@ class Account {
       "uid": uid,
       "email": email,
       "fullName": fullName,
-      "photoUrl": photoUrl ?? "assets/images/avatar.jpg",
+      "photoUrl": photoUrl ?? "assets/images/avatar.png",
       "createdAt": createdAt ?? FieldValue.serverTimestamp(),
     };
   }
