@@ -16,10 +16,10 @@ class FirebaseAuthService {
   }
 
   Future<Account> createUserWithEmailPassword(
-      String email, String password) async {
+      String email, String password, String fullName) async {
     UserCredential _result = await _auth.createUserWithEmailAndPassword(
         email: email, password: password);
-    return _accountFromFirebase(_result.user);
+    return _accountFromFirebase(_result.user, fullName);
   }
 
   Future<Account> signInWithEmailPassword(String email, String password) async {
@@ -41,7 +41,8 @@ class FirebaseAuthService {
               accessToken: _googleAuth.accessToken),
         );
         User _account = _result.user;
-        return _accountFromFirebase(_account);
+        return _accountFromFirebase(
+            _account, _account.displayName, _account.photoURL);
       } else {
         return null;
       }
@@ -52,9 +53,12 @@ class FirebaseAuthService {
 
   Future<bool> signOut() async {
     try {
-      final _googleSignIn = GoogleSignIn();
-      await _googleSignIn.signOut();
       await _auth.signOut();
+      final _googleSignIn = GoogleSignIn();
+      if (await _googleSignIn.isSignedIn()) {
+        await _googleSignIn.disconnect();
+        await _googleSignIn.signOut();
+      }
       return true;
     } catch (e) {
       print("Sign out error" + e.toString());
@@ -62,11 +66,16 @@ class FirebaseAuthService {
     return false;
   }
 
-  Account _accountFromFirebase(User account) {
-    if (account == null) {
+  Account _accountFromFirebase(User user, [String fullName, String photoUrl]) {
+    if (user == null) {
       return null;
     } else {
-      return Account(accountID: account.uid, email: account.email);
+      return Account(
+        uid: user.uid,
+        email: user.email,
+        fullName: fullName,
+        photoUrl: photoUrl,
+      );
     }
   }
 }
