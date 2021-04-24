@@ -142,45 +142,6 @@ class _SettingsPageState extends State<SettingsPage> {
                     },
                   ),
                 ),
-                Divider(
-                  color: Colors.black,
-                ),
-                Text('Uygulama Hakkında',
-                    style:
-                        TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold)),
-                Padding(
-                  padding: const EdgeInsets.only(right: 30.0, left: 30.0),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        title: Text('Uygulama Adı'),
-                        subtitle: Text('MultiCamp Flutter Haberler Projesi'),
-                      ),
-                      ListTile(
-                        title: Text('Uygulama versiyonu'),
-                        subtitle: Text('1.0.0'),
-                      ),
-                      ListTile(
-                        title: Text('Geliştirci adı'),
-                        subtitle: Text('Recep Baştürk'),
-                      ),
-                      ListTile(
-                        title: Text('Geliştirci E-posta'),
-                        subtitle: Text('recepbasturk@gmail.com'),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => LicensePage(),
-                          ));
-                        },
-                        child: ListTile(
-                          title: Text('Lisanslar'),
-                        ),
-                      ),
-                    ],
-                  ),
-                )
               ],
             ),
           );
