@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hive/hive.dart';
-import 'package:multicamp_flutter_project/view_models/account_view_model.dart';
-import 'package:multicamp_flutter_project/view_models/news_view_model.dart';
+import '../view_models/account_view_model.dart';
+import '../view_models/news_view_model.dart';
 
 import '../locator.dart';
 import '../main.dart';
